@@ -591,3 +591,85 @@ class UserRepo implements Repository<{ id: number; name: string }> {
 - We can **constrain generics** using `extends` to restrict their allowed types.
 - Generics work in **functions, classes, interfaces, and utility types**.
 ---
+
+In TypeScript, both `interface` and `type` are used to define the structure of objects, but they have some differences in terms of usage and flexibility.
+
+---
+
+## **Differences Between `interface` and `type`**
+| Feature | `interface` | `type` |
+|----------|------------|--------|
+| **Extensibility** | Can be extended using `extends` or by declaring multiple interfaces with the same name (declaration merging). | Cannot be extended using declaration merging, but can be combined using intersections (`&`). |
+| **Usage for Objects** | Best suited for defining object structures. | Can define object structures but is also used for primitives, unions, tuples, and more. |
+| **Declaration Merging** | Supports declaration merging, meaning you can define multiple interfaces with the same name, and TypeScript will merge them. | Does not support merging; redefining the same `type` will cause an error. |
+| **Performance** | Slightly better performance in compilation for large projects due to optimized type checking. | May have slightly slower compilation in complex scenarios. |
+| **Supports Primitive Types** | No, `interface` is only for objects and classes. | Yes, `type` can represent primitives like `string`, `number`, etc. |
+| **Supports Tuples & Unions** | No, `interface` does not support defining tuples or unions. | Yes, `type` can define tuples (`[string, number]`) and union types (`string | number`). |
+
+---
+
+## **When to Use `interface` vs. `type`**
+| **Scenario** | **Use `interface`** | **Use `type`** |
+|--------------|-----------------|------------|
+| **Defining object structures** | ✅ Preferred because it supports `extends` and declaration merging. | ✅ Possible but less common. |
+| **Defining functions** | ✅ Possible but less common. | ✅ More commonly used for function signatures. |
+| **Defining primitive types (e.g., `string`, `number`)** | ❌ Not possible. | ✅ Use `type` for primitives. |
+| **Defining union types (`A | B`)** | ❌ Not possible. | ✅ `type` is required for unions. |
+| **Defining tuple types (`[string, number]`)** | ❌ Not possible. | ✅ `type` is required for tuples. |
+| **Needing declaration merging** | ✅ Yes, use `interface`. | ❌ Not supported in `type`. |
+| **Extending other types** | ✅ `extends` is available for interfaces. | ✅ Use intersection (`&`) for type extensions. |
+
+---
+
+## **Examples**
+### **Using `interface`**
+```typescript
+interface User {
+  name: string;
+  age: number;
+}
+
+interface Employee extends User {
+  position: string;
+}
+
+const employee: Employee = {
+  name: "Alice",
+  age: 30,
+  position: "Developer",
+};
+```
+
+### **Using `type`**
+```typescript
+type User = {
+  name: string;
+  age: number;
+};
+
+type Employee = User & {
+  position: string;
+};
+
+const employee: Employee = {
+  name: "Alice",
+  age: 30,
+  position: "Developer",
+};
+```
+
+### **When `type` is Necessary (Union & Tuple)**
+```typescript
+// Union type
+type Status = "pending" | "approved" | "rejected";
+
+// Tuple type
+type Coordinates = [number, number];
+```
+
+---
+
+## **Best Practices**
+- Use `interface` for objects, especially when we need to extend or merge types.
+- Use `type` for union types, tuples, and when working with primitives.
+- If we're unsure, start with `interface`. Switch to `type` only if you need features like unions or tuples.
