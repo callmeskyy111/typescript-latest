@@ -355,3 +355,239 @@ Here are some more options you may find useful:
 - The `tsconfig.json` is an essential configuration file that helps TypeScript understand how to compile your code efficiently.
 - It ensures type safety, provides strict error checking, and generates clean JavaScript code.
 - By properly configuring `tsconfig.json`, you can manage large-scale TypeScript projects with ease.
+
+### **Generics in TypeScript - In Depth Explanation**  
+
+Generics in TypeScript allow us to create reusable, flexible, and type-safe code by enabling parameterized types. Instead of writing multiple versions of the same function, class, or interface with different types, we can use generics to define a blueprint that works with various types.  
+
+---
+
+## **1. What Are Generics?**
+Generics provide a way to define **placeholder types** that can be specified later when the function, class, or interface is used.
+
+### **Example Without Generics**
+Without generics, if we want a function that returns the same type of value we pass in, we would need to define multiple function overloads:
+
+```typescript
+function identityNumber(arg: number): number {
+  return arg;
+}
+
+function identityString(arg: string): string {
+  return arg;
+}
+```
+This approach works, but it lacks flexibility and results in code duplication.
+
+### **Example With Generics**
+Generics solve this by introducing a type variable (`T`) that represents the actual type:
+
+```typescript
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+// Usage
+const num = identity<number>(42);   // num is of type number
+const str = identity<string>("hello");  // str is of type string
+```
+Here, `<T>` is a **type parameter**, allowing `identity` to work with any type.
+
+---
+
+## **2. Generic Functions**
+### **Basic Generic Function**
+A generic function lets the caller define the type dynamically:
+
+```typescript
+function reverseArray<T>(items: T[]): T[] {
+  return items.reverse();
+}
+
+// Usage
+const numbers = reverseArray<number>([1, 2, 3, 4]);
+const strings = reverseArray<string>(["a", "b", "c"]);
+```
+Here, `<T>` makes `reverseArray` work with both `number[]` and `string[]`.
+
+### **Using Type Inference**
+TypeScript can infer types, so we can omit explicit type parameters:
+
+```typescript
+const mixed = identity(["apple", "banana", "cherry"]); // TypeScript infers T as string[]
+```
+
+---
+
+## **3. Generic Interfaces**
+We can use generics in interfaces to define reusable structures.
+
+### **Example: Generic Interface**
+```typescript
+interface Box<T> {
+  value: T;
+}
+
+const numberBox: Box<number> = { value: 100 };
+const stringBox: Box<string> = { value: "Hello" };
+```
+
+### **Extending Generic Interfaces**
+We can extend generic interfaces to create more specialized types:
+
+```typescript
+interface Data<T> {
+  id: number;
+  content: T;
+}
+
+interface UserData extends Data<string> {
+  username: string;
+}
+
+const user: UserData = {
+  id: 1,
+  content: "Some user data",
+  username: "JohnDoe"
+};
+```
+
+---
+
+## **4. Generic Classes**
+A generic class allows us to create reusable and type-safe class definitions.
+
+### **Example: Generic Class**
+```typescript
+class Storage<T> {
+  private items: T[] = [];
+
+  addItem(item: T): void {
+    this.items.push(item);
+  }
+
+  getItems(): T[] {
+    return this.items;
+  }
+}
+
+// Usage
+const stringStorage = new Storage<string>();
+stringStorage.addItem("Hello");
+console.log(stringStorage.getItems()); // ["Hello"]
+
+const numberStorage = new Storage<number>();
+numberStorage.addItem(42);
+console.log(numberStorage.getItems()); // [42]
+```
+This class works with **any** data type while maintaining type safety.
+
+---
+
+## **5. Generic Constraints**
+Sometimes, we need to restrict the types that can be used with generics.
+
+### **Example: Using Constraints**
+We can use `extends` to specify constraints:
+
+```typescript
+function getLength<T extends { length: number }>(arg: T): number {
+  return arg.length;
+}
+
+console.log(getLength("Hello")); // Works: string has length
+console.log(getLength([1, 2, 3])); // Works: array has length
+// console.log(getLength(42)); // Error: number doesn't have a length property
+```
+Here, `<T extends { length: number }>` ensures that `T` must have a `length` property.
+
+---
+
+## **6. Generic Type Aliases**
+We can create generic type aliases for reusable structures.
+
+### **Example: Generic Type Alias**
+```typescript
+type Response<T> = {
+  status: number;
+  data: T;
+};
+
+const successResponse: Response<string> = {
+  status: 200,
+  data: "Success"
+};
+
+const userResponse: Response<{ id: number; name: string }> = {
+  status: 200,
+  data: { id: 1, name: "John" }
+};
+```
+
+---
+
+## **7. Generics with Utility Types**
+TypeScript provides built-in utility types that leverage generics.
+
+### **Example: `Partial<T>`**
+The `Partial<T>` utility type makes all properties optional.
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+}
+
+const updateUser = (id: number, update: Partial<User>) => {
+  // Update logic here...
+};
+
+updateUser(1, { name: "Updated Name" }); // `id` is not required
+```
+
+### **Example: `Record<K, T>`**
+The `Record<K, T>` utility type creates a mapped type.
+
+```typescript
+type UserRoles = Record<string, string>;
+
+const roles: UserRoles = {
+  admin: "Manage system",
+  editor: "Edit content",
+  viewer: "Read content"
+};
+```
+
+---
+
+## **8. Generics with Functions, Classes, and Interfaces Together**
+We can combine generics across different structures.
+
+### **Example: Generic Repository Pattern**
+```typescript
+interface Repository<T> {
+  findById(id: number): T | null;
+  save(item: T): void;
+}
+
+class UserRepo implements Repository<{ id: number; name: string }> {
+  private users: { id: number; name: string }[] = [];
+
+  findById(id: number) {
+    return this.users.find(user => user.id === id) || null;
+  }
+
+  save(user: { id: number; name: string }) {
+    this.users.push(user);
+  }
+}
+```
+
+---
+
+## **9. Key Takeaways**
+- Generics **increase code reusability** while maintaining **type safety**.
+- TypeScript can **infer** generic types in most cases.
+- We can **constrain generics** using `extends` to restrict their allowed types.
+- Generics work in **functions, classes, interfaces, and utility types**.
+---
