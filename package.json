@@ -1,5 +1,15 @@
 {
   "devDependencies": {
     "typescript": "^5.8.2"
-  }
+  },
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "TypeScript is a **strongly typed, object-oriented, compiled language** that builds on **JavaScript**. Developed and maintained by **Microsoft**, it is often referred to as a **superset of JavaScript**. This means any valid JavaScript code is also valid TypeScript code. However, TypeScript adds powerful features like **static typing**, **interfaces**, **generics**, **enums**, and **advanced tooling support**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Soumadip Banerjee",
+  "license": "ISC"
 }
