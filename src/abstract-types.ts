@@ -19,7 +19,9 @@ function logMessage(): void {
 logMessage();
 
 // null
-let nothing:null = null;
+let nothing: null = null;
 
 // undefined
-let notAssigned:undefined = undefined
+let notAssigned: undefined = undefined;
+
+// Type inference - automatic assumptions/guess by TS (not recommended, just like 'any')

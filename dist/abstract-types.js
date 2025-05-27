@@ -14,3 +14,8 @@ function logMessage() {
     console.log("Message logged ✅");
 }
 logMessage();
+// null
+let nothing = null;
+// undefined
+let notAssigned = undefined;
+// Type inference - automatic assumptions/guess by TS (not recommended, just like 'any')
