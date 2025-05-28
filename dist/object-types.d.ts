@@ -19,3 +19,11 @@ type Product = {
     price: number;
 };
 declare const smartPhone: Product;
+type Pokemon = {
+    id?: number;
+    name: string;
+    type: string;
+    popularAttack?: string;
+};
+declare const pikachu: Pokemon;
+declare const chikorita: Pokemon;

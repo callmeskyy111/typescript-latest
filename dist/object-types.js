@@ -22,4 +22,13 @@ const smartPhone = {
     description: "Really powerful and convenient",
     price: 16000,
 };
-console.log(smartPhone.productName);
+const pikachu = {
+    id: 25,
+    name: "Pikachu",
+    type: "Electric",
+};
+const chikorita = {
+    name: 'Chikorita',
+    type: 'Grass',
+    popularAttack: 'Razor-Leaf'
+};
