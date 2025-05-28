@@ -1,5 +1,5 @@
 "use strict";
-// project 1: student-profile with types
+//todo: project 1 (student-profile with types)
 const student1 = {
     name: "Skyy",
     age: 29,

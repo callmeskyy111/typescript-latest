@@ -1,4 +1,4 @@
-// project 1: student-profile with types
+//todo: project 1 (student-profile with types)
 
 type StudentType = {
   //use CAPS. for naming

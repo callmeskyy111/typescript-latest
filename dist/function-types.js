@@ -17,8 +17,17 @@ function greet2(name, title) {
 //console.log(greet2("Soumadip", "Banerjee")); //Hello Soumadip Banerjee!
 //console.log(greet2("Soumadip")); //Hello Soumadip!
 //Default params. (=)
-function greet3(name = 'Guest') {
+function greet3(name = "Guest") {
     return `Hello, ${name}!`;
 }
-console.log(greet3("Peter"));
-console.log(greet3());
+// console.log(greet3("Peter")); // Hello, Peter!
+// console.log(greet3()); // Hello, Guest!
+//! Return Types
+// void - if it doesn't return anything
+//never type example (it never finishes..)
+function throwErr() {
+    throw new Error("Something Went Wrong! 🔴");
+}
+//! Arrow functions
+const addTwoNums = (a, b) => a + b;
+//console.log(addTwoNums(3,2)); //5

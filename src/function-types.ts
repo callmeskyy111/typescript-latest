@@ -27,5 +27,17 @@ function greet3(name: string = "Guest"): string {
   return `Hello, ${name}!`;
 }
 
-console.log(greet3("Peter")); // Hello, Peter!
-console.log(greet3()); // Hello, Guest!
+// console.log(greet3("Peter")); // Hello, Peter!
+// console.log(greet3()); // Hello, Guest!
+
+//! Return Types
+// void - if it doesn't return anything
+
+//never type example (it never finishes..)
+function throwErr(): never {
+  throw new Error("Something Went Wrong! 🔴");
+}
+
+//! Arrow functions
+const addTwoNums = (a: number, b: number): number => a + b;
+//console.log(addTwoNums(3,2)); //5
