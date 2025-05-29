@@ -673,3 +673,189 @@ type Coordinates = [number, number];
 - Use `interface` for objects, especially when we need to extend or merge types.
 - Use `type` for union types, tuples, and when working with primitives.
 - If we're unsure, start with `interface`. Switch to `type` only if you need features like unions or tuples.
+
+
+
+---
+
+## 🔹 1. Union Types (`|`)
+
+### ✅ What Is It?
+
+A **Union Type** allows a variable to hold **more than one type**. It means **either one type OR another**.
+
+```ts
+let value: string | number;
+
+value = "Hello"; // ✅
+value = 42;      // ✅
+value = true;    // ❌ Error
+```
+
+> Think of a union as: “This or That.”
+
+---
+
+### ✅ Real-World Analogy
+
+Imagine a **contact form field** that accepts either:
+
+* a **phone number** or
+* an **email address**
+
+```ts
+type Contact = string | number;
+
+function sendMessage(contact: Contact) {
+  console.log("Sending message to:", contact);
+}
+```
+
+So here, `contact` can be a number **or** a string, depending on how the user wants to be contacted.
+
+---
+
+### ✅ Type Narrowing with Unions
+
+TypeScript doesn’t know the exact type unless we **narrow** it down:
+
+```ts
+function printId(id: number | string) {
+  if (typeof id === "string") {
+    console.log("ID in uppercase:", id.toUpperCase());
+  } else {
+    console.log("ID doubled:", id * 2);
+  }
+}
+```
+
+---
+
+## 🔸 2. Intersection Types (`&`)
+
+### ✅ What Is It?
+
+An **Intersection Type** allows a variable to have **all properties from multiple types**. It means “**This AND That**”.
+
+```ts
+type Admin = {
+  name: string;
+  role: string;
+};
+
+type User = {
+  name: string;
+  email: string;
+};
+
+type AdminUser = Admin & User;
+
+const person: AdminUser = {
+  name: "Skyy",
+  role: "Moderator",
+  email: "skyy@example.com",
+};
+```
+
+> Think of it like combining multiple blueprints into one super-object that has all features.
+
+---
+
+### ✅ Real-World Analogy
+
+Imagine someone who is **both** a **Customer** and a **Vendor** on an e-commerce site:
+
+```ts
+type Customer = {
+  purchaseHistory: string[];
+};
+
+type Vendor = {
+  shopName: string;
+};
+
+type CustomerVendor = Customer & Vendor;
+
+const dualUser: CustomerVendor = {
+  purchaseHistory: ["T-shirt", "Laptop"],
+  shopName: "Skyy's Store",
+};
+```
+
+They must have **both** properties to be valid.
+
+---
+
+## ⚖️ Key Differences
+
+\| Feature               | Union (`|`)                              | Intersection (`&`)                        |
+\|----------------------|-------------------------------------------|--------------------------------------------|
+\| Meaning              | Either one type or another                | Must satisfy all types                     |
+\| Use Case             | Flexible APIs, polymorphic parameters     | Merging object structures                  |
+\| Value Requirements   | Must match at least one type              | Must match all involved types              |
+\| Type Narrowing       | Required at runtime (e.g., `typeof`)     | TypeScript ensures all required fields     |
+
+---
+
+## 🧪 Examples
+
+### Union in Function Parameters
+
+```ts
+function logStatus(status: "loading" | "success" | "error") {
+  console.log("Status is:", status);
+}
+```
+
+* This is a common case in React apps or API states.
+
+---
+
+### Intersection in React Props
+
+```ts
+type WithChildren = {
+  children: React.ReactNode;
+};
+
+type ButtonProps = {
+  onClick: () => void;
+  label: string;
+};
+
+type FullButtonProps = WithChildren & ButtonProps;
+
+const Button: React.FC<FullButtonProps> = ({ onClick, label, children }) => (
+  <button onClick={onClick}>
+    {label} {children}
+  </button>
+);
+```
+
+> This pattern is often used in component libraries to combine reusable props.
+
+---
+
+## ✅ Summary
+
+\| Concept        | Union (`|`)                        | Intersection (`&`)                     |
+\|----------------|-------------------------------------|----------------------------------------|
+\| Read as        | "OR"                               | "AND"                                  |
+\| Flexibility    | More flexible, accepts either type | Strict, needs everything               |
+\| Use cases      | Function args, config options      | Props merging, multiple roles/entities |
+
+---
+
+## 💡 Pro Tips
+
+* Use unions for **optional behavior** or **variants**
+* Use intersections for **building up complex types** like Redux state, React props, or user roles
+* Combine both where needed:
+
+```ts
+type Success = { status: "success"; data: string };
+type Error = { status: "error"; errorMsg: string };
+type APIResponse = Success | Error;
+```
+
+---
