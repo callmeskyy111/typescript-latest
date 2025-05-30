@@ -6,5 +6,9 @@ let phone;
 function getProduct(id) {
     console.log(`Fetching product with ID: #${id}`);
 }
-getProduct('123');
+getProduct("123");
 getProduct(456);
+const admin = {
+    name: "admin1",
+    isAdmin: true,
+};
