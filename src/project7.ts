@@ -24,4 +24,4 @@ const post2: Blog = {
   status: PostStatus.Draft,
 };
 
-console.log(post.status," " ,post.content);
+console.log(post.status," ",post.content);
