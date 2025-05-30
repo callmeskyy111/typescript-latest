@@ -4,7 +4,7 @@ const ak47 = {
     name: "ak-47",
     origin: "USSR",
 };
-const myDog = {
-    name: "Romeo",
-    breed: "German-Shepherd",
-};
+// const myDog: Dog = {
+//   name: "Romeo",
+//   breed: "German-Shepherd",
+// };

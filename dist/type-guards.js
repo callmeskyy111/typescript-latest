@@ -9,6 +9,8 @@ function displayPokemon(pokemon) {
         console.log(`Your Pokemon's No. is ${pokemon.toFixed()}`);
     }
 }
+displayPokemon("Raichu");
+displayPokemon(26);
 function pokemonAttack(pokemon) {
     if ("thundershock" in pokemon) {
         pokemon.thundershock();
@@ -27,8 +29,8 @@ const chikoritaAttack = {
         console.log(`Chiko Chiko!`);
     },
 };
-// pokemonAttack(pikachuAttack);
-// pokemonAttack(chikoritaAttack);
+pokemonAttack(pikachuAttack);
+pokemonAttack(chikoritaAttack);
 //3️⃣ InstanceOf - Mainly for CLASSES (OOP)
 class ElectricType {
     thunderShock() {
@@ -52,3 +54,18 @@ const Jolteon = new ElectricType();
 const Vaporeon = new WaterType();
 attack(Jolteon);
 attack(Vaporeon);
+function isSquirtle(pokemon) {
+    return pokemon.swim !== undefined;
+}
+function move(pokemon) {
+    if (isSquirtle(pokemon)) {
+        pokemon.swim();
+    }
+    else {
+        pokemon.fly();
+    }
+}
+const mySquirtle = {
+    swim: () => console.log(`Squirtle is swimming..`),
+};
+move(mySquirtle); //Squirtle is swimming..

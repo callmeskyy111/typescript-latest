@@ -71,3 +71,30 @@ const Vaporeon: WaterType = new WaterType();
 
 attack(Jolteon);
 attack(Vaporeon);
+
+//4️⃣ Custom Type Guard/Checker
+type Squirtle = {
+  swim: () => void;
+};
+
+type Pidgey = {
+  fly: () => void;
+};
+
+function isSquirtle(pokemon: Squirtle | Pidgey): pokemon is Squirtle {
+  return (pokemon as Squirtle).swim !== undefined;
+}
+
+function move(pokemon: Squirtle | Pidgey) {
+  if (isSquirtle(pokemon)) {
+    pokemon.swim();
+  } else {
+    pokemon.fly();
+  }
+}
+
+const mySquirtle = {
+  swim: () => console.log(`Squirtle is swimming..`),
+};
+
+move(mySquirtle); //Squirtle is swimming..

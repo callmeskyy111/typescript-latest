@@ -17,3 +17,14 @@ declare class WaterType {
 declare function attack(pokemon: ElectricType | WaterType): void;
 declare const Jolteon: ElectricType;
 declare const Vaporeon: WaterType;
+type Squirtle = {
+    swim: () => void;
+};
+type Pidgey = {
+    fly: () => void;
+};
+declare function isSquirtle(pokemon: Squirtle | Pidgey): pokemon is Squirtle;
+declare function move(pokemon: Squirtle | Pidgey): void;
+declare const mySquirtle: {
+    swim: () => void;
+};

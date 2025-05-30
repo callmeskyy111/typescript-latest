@@ -47,7 +47,7 @@ interface Dog extends Animal {
   breed: string;
 }
 
-const myDog: Dog = {
-  name: "Romeo",
-  breed: "German-Shepherd",
-};
+// const myDog: Dog = {
+//   name: "Romeo",
+//   breed: "German-Shepherd",
+// };

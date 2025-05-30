@@ -21,4 +21,3 @@ interface Animal {
 interface Dog extends Animal {
     breed: string;
 }
-declare const myDog: Dog;
